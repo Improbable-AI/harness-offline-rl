@@ -1,6 +1,9 @@
 Harnessing Mixed Offline Reinforcement Learning Datasets via Trajectory Weighting
 =
 
+# Updates
+- 2023/06/15: Fix max-min normalization in AW and RW
+
 # Installation
 Follow the instruction in https://github.com/takuseno/d3rlpy
 
