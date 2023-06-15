@@ -320,7 +320,7 @@ class RW(WeightedSampleAlgoBase):
     T = np.asarray([len(ep.transitions) for ep in episodes])
     G_it = np.asarray(reduce(lambda x, y: x + y, [[G_i] * T_i for G_i, T_i in zip(G, T)]))
     w_it = scipy.special.softmax(G_it / self.alpha)
-
+    w_it = (w_it - w_it.min()) / (w_it.max() - w_it.min())
     return w_it
 
 
@@ -336,6 +336,7 @@ class AW(WeightedSampleAlgoBase):
     V = LinearRegression().fit(s0, G).predict(s0)
     V_it = np.asarray(reduce(lambda x, y: x + y, [[V_i] * T_i for V_i, T_i in zip(V, T)]))
     A_it = G_it - V_it
+    A_it = (A_it - A_it.min()) / (A_it.max() - A_it.min())
     w_it = scipy.special.softmax(A_it / self.alpha)
     w_it /= w_it.sum() # Numerical errors
     return w_it
